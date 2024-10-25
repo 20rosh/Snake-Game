@@ -1,8 +1,8 @@
 let playerName;
 let score = 0;
-let speed = 150;  // Default speed
-let snakeColor = "#00FF00";  // Default snake color
-let countdownValue = 3;
+
+// Retrieve the high score and player name from localStorage or initialize them
+let highScoreData = JSON.parse(localStorage.getItem("highScoreData")) || { name: "No Player", score: 0 };
 
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
@@ -15,12 +15,16 @@ let interval;
 // DOM elements
 const welcomeScreen = document.getElementById("welcomeScreen");
 const gameScreen = document.getElementById("gameScreen");
+const howToPlayScreen = document.getElementById("howToPlay");
+const settingsScreen = document.getElementById("settings");
 const scoreDisplay = document.getElementById("scoreDisplay");
 const countdownElement = document.getElementById("countdown");
 const playAgainButton = document.getElementById("playAgainButton");
 const homeButton = document.getElementById("homeButton");
-const speedSelect = document.getElementById("speed");
-const snakeColorInput = document.getElementById("snakeColor");
+const highScoreDisplay = document.getElementById("highScoreDisplay");
+
+// Display high score and player name on welcome screen
+highScoreDisplay.textContent = `High Score: ${highScoreData.score} by ${highScoreData.name}`;
 
 // Start game button
 document.getElementById("startButton").addEventListener("click", function() {
@@ -29,16 +33,15 @@ document.getElementById("startButton").addEventListener("click", function() {
         alert("Please enter your name.");
         return;
     }
-
     welcomeScreen.style.display = "none";
     gameScreen.style.display = "block";
     
     startCountdown();
 });
 
-// Countdown before the game starts
+// Countdown before game starts
 function startCountdown() {
-    countdownValue = 3;
+    let countdownValue = 3;
     countdownElement.style.display = "block";
     const countdownInterval = setInterval(function() {
         countdownElement.textContent = countdownValue;
@@ -51,14 +54,14 @@ function startCountdown() {
     }, 1000);
 }
 
-// Start the game
+// Game start function
 function startGame() {
     score = 0;
     snake = [{ x: 200, y: 200 }];
     direction = { x: 0, y: 0 };
     food = { x: Math.floor(Math.random() * 20) * 20, y: Math.floor(Math.random() * 20) * 20 };
     updateScore();
-    interval = setInterval(gameLoop, speed);
+    interval = setInterval(gameLoop, 150);
 }
 
 // Game loop
@@ -71,12 +74,11 @@ function gameLoop() {
     }
 }
 
-// Move snake
+// Move snake function
 function moveSnake() {
     const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
     snake.unshift(head);
 
-    // Check if snake eats the food
     if (head.x === food.x && head.y === food.y) {
         score++;
         updateScore();
@@ -89,19 +91,16 @@ function moveSnake() {
 // Draw game elements
 function drawGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Draw snake
-    ctx.fillStyle = snakeColor;
+    ctx.fillStyle = "#00FF00";
     snake.forEach(function(part) {
         ctx.fillRect(part.x, part.y, 20, 20);
     });
 
-    // Draw food
     ctx.fillStyle = "red";
     ctx.fillRect(food.x, food.y, 20, 20);
 }
 
-// Check collision with walls or self
+// Collision check function
 function checkCollision() {
     const head = snake[0];
     if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
@@ -115,15 +114,21 @@ function checkCollision() {
     return false;
 }
 
-// Game over
+// Game over function
 function gameOver() {
     clearInterval(interval);
-    alert(playerName + ", you lost! Your score: " + score);
+    if (score > highScoreData.score) {
+        highScoreData = { name: playerName, score: score };
+        localStorage.setItem("highScoreData", JSON.stringify(highScoreData));
+        alert(`${playerName}, you set a new high score! Your score: ${score}`);
+    } else {
+        alert(`${playerName}, you lost! Your score: ${score}`);
+    }
     playAgainButton.style.display = "block";
     homeButton.style.display = "block";
 }
 
-// Update score
+// Update score display
 function updateScore() {
     scoreDisplay.textContent = "Score: " + score;
 }
@@ -135,36 +140,30 @@ playAgainButton.addEventListener("click", function() {
     startCountdown();
 });
 
-// Go back to home
+// Return to home
 homeButton.addEventListener("click", function() {
     playAgainButton.style.display = "none";
     homeButton.style.display = "none";
     gameScreen.style.display = "none";
     welcomeScreen.style.display = "block";
+    // Update high score display in case it's changed
+    highScoreDisplay.textContent = `High Score: ${highScoreData.score} by ${highScoreData.name}`;
 });
 
-// Key events to control snake
-document.addEventListener("keydown", function(e) {
-    if (e.key === "ArrowUp" && direction.y === 0) direction = { x: 0, y: -20 };
-    if (e.key === "ArrowDown" && direction.y === 0) direction = { x: 0, y: 20 };
-    if (e.key === "ArrowLeft" && direction.x === 0) direction = { x: -20, y: 0 };
-    if (e.key === "ArrowRight" && direction.x === 0) direction = { x: 20, y: 0 };
-});
-
-// Save settings button
-document.getElementById("saveSettings").addEventListener("click", function() {
-    speed = parseInt(speedSelect.value);
-    snakeColor = snakeColorInput.value;
-    alert("Settings saved!");
-    document.getElementById("settings").style.display = "none";
-    welcomeScreen.style.display = "block";
-});
-
-// Go back to the main menu from settings or how to play
-document.querySelectorAll("#backToMenu").forEach(function(button) {
-    button.addEventListener("click", function() {
-        document.getElementById("settings").style.display = "none";
-        document.getElementById("howToPlay").style.display = "none";
-        welcomeScreen.style.display = "block";
-    });
+// Arrow keys to control snake
+document.addEventListener("keydown", function(event) {
+    switch (event.key) {
+        case "ArrowUp":
+            if (direction.y === 0) direction = { x: 0, y: -20 };
+            break;
+        case "ArrowDown":
+            if (direction.y === 0) direction = { x: 0, y: 20 };
+            break;
+        case "ArrowLeft":
+            if (direction.x === 0) direction = { x: -20, y: 0 };
+            break;
+        case "ArrowRight":
+            if (direction.x === 0) direction = { x: 20, y: 0 };
+            break;
+    }
 });
