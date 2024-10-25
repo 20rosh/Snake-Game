@@ -3,58 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
     <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Welcome Screen -->
     <div id="welcomeScreen">
-        <h1>Welcome to the Snake Game</h1>
-        <label for="playerName">Enter your name:</label>
-        <input type="text" id="playerName" placeholder="Your name">
-        <button id="startButton">Start Game</button>
+        <h1>Welcome to Snake Game!</h1>
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="startGameButton">Start Game</button>
         <button id="howToPlayButton">How to Play</button>
         <button id="settingsButton">Settings</button>
-        <h2 id="highScoreDisplay">High Score: 0</h2>
+        <p id="highScoreDisplay"></p>
     </div>
 
-    <!-- Game Screen -->
-    <div id="gameScreen" style="display: none;">
-        <h2 id="scoreDisplay">Score: 0</h2>
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <h3 id="countdown" style="display: none;">3</h3>
-        <button id="playAgainButton" style="display: none;">Play Again</button>
-        <button id="homeButton" style="display: none;">Home</button>
-    </div>
-
-    <!-- How to Play Screen -->
-    <div id="howToPlay" style="display: none;">
+    <div id="howToPlay" style="display:none;">
         <h2>How to Play</h2>
-        <p>Use arrow keys to move the snake:</p>
-        <ul>
-            <li>Arrow Up: Move Up</li>
-            <li>Arrow Down: Move Down</li>
-            <li>Arrow Left: Move Left</li>
-            <li>Arrow Right: Move Right</li>
-        </ul>
-        <button id="backToMenuHowToPlay">Back to Menu</button>
+        <p>Use the arrow keys to move the snake.</p>
+        <p>Eat the food to grow and increase your score!</p>
+        <img src="arrow-keys.png" alt="Arrow keys">
+        <button id="backToHomeButton">Back</button>
     </div>
 
-    <!-- Settings Screen -->
-    <div id="settings" style="display: none;">
+    <div id="settings" style="display:none;">
         <h2>Settings</h2>
         <label for="speed">Speed:</label>
         <select id="speed">
-            <option value="150">Normal</option>
-            <option value="100">Fast</option>
-            <option value="50">Very Fast</option>
+            <option value="100">Normal</option>
+            <option value="50">Fast</option>
+            <option value="25">Very Fast</option>
         </select>
-        <label for="snakeColor">Snake Color:</label>
-        <input type="color" id="snakeColor" value="#00FF00">
-        <button id="saveSettings">Save Settings</button>
-        <button id="backToMenuSettings">Back to Menu</button>
+        <button id="saveSettingsButton">Save Settings</button>
+        <button id="backToHomeFromSettingsButton">Back</button>
     </div>
+
+    <div id="gameScreen" style="display:none;">
+        <h2>Snake Game</h2>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <p>Score: <span id="score">0</span></p>
+        <button id="playAgainButton" style="display:none;">Play Again</button>
+        <button id="homeButton" style="display:none;">Home</button>
+    </div>
+
+    <footer>
+        <p>Connect with me on social media:</p>
+        <ul>
+            <li><a href="https://www.linkedin.com/in/roshani-s-a2475926b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/20rosh" target="_blank">GitHub</a></li>
+        </ul>
+        <p>Check out my portfolio: <a href="https://20rosh.github.io/ROSHANI-PORTFOLIO/" target="_blank">yourportfolio.com</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
