@@ -7,55 +7,53 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <!-- Welcome Screen -->
     <div id="welcomeScreen">
         <h1>Welcome to the Snake Game</h1>
-        <div class="input-container">
-            <label for="playerName">Enter your name:</label>
-            <input type="text" id="playerName" placeholder="Enter your name here">
-        </div>
+        <label for="playerName">Enter your name:</label>
+        <input type="text" id="playerName" placeholder="Your name">
         <button id="startButton">Start Game</button>
         <button id="howToPlayButton">How to Play</button>
         <button id="settingsButton">Settings</button>
+        <h2 id="highScoreDisplay">High Score: 0</h2>
     </div>
 
     <!-- Game Screen -->
     <div id="gameScreen" style="display: none;">
         <h2 id="scoreDisplay">Score: 0</h2>
         <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <div id="countdown" style="display: none;"></div>
-        <button id="playAgainButton" class="hidden">Play Again</button>
-        <button id="homeButton" class="hidden">Go Home</button>
+        <h3 id="countdown" style="display: none;">3</h3>
+        <button id="playAgainButton" style="display: none;">Play Again</button>
+        <button id="homeButton" style="display: none;">Home</button>
+    </div>
+
+    <!-- How to Play Screen -->
+    <div id="howToPlay" style="display: none;">
+        <h2>How to Play</h2>
+        <p>Use arrow keys to move the snake:</p>
+        <ul>
+            <li>Arrow Up: Move Up</li>
+            <li>Arrow Down: Move Down</li>
+            <li>Arrow Left: Move Left</li>
+            <li>Arrow Right: Move Right</li>
+        </ul>
+        <button id="backToMenuHowToPlay">Back to Menu</button>
     </div>
 
     <!-- Settings Screen -->
     <div id="settings" style="display: none;">
-        <h2>Game Settings</h2>
-        <label for="speed">Select Speed:</label>
+        <h2>Settings</h2>
+        <label for="speed">Speed:</label>
         <select id="speed">
             <option value="150">Normal</option>
             <option value="100">Fast</option>
             <option value="50">Very Fast</option>
         </select>
-        <br>
-        <label for="snakeColor">Select Snake Color:</label>
+        <label for="snakeColor">Snake Color:</label>
         <input type="color" id="snakeColor" value="#00FF00">
-        <br>
         <button id="saveSettings">Save Settings</button>
-        <button id="backToMenu">Back to Menu</button>
-    </div>
-
-    <!-- How To Play Screen -->
-    <div id="howToPlay" style="display: none;">
-        <h2>How to Play</h2>
-        <p>Use the following keys to move the snake:</p>
-        <ul>
-            <li><strong>Arrow Up</strong> - Move Up</li>
-            <li><strong>Arrow Down</strong> - Move Down</li>
-            <li><strong>Arrow Left</strong> - Move Left</li>
-            <li><strong>Arrow Right</strong> - Move Right</li>
-        </ul>
-        <button id="backToMenu">Back to Menu</button>
+        <button id="backToMenuSettings">Back to Menu</button>
     </div>
 
     <script src="script.js"></script>
