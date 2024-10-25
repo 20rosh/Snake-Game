@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Snake Game</title>
+</head>
+<body>
+    <div id="welcomeScreen">
+        <h1>Welcome to Snake Game!</h1>
+        <input type="text" id="playerName" placeholder="Enter your name">
+        <button id="startGameButton">Start Game</button>
+        <button id="howToPlayButton">How to Play</button>
+        <button id="settingsButton">Settings</button>
+        <p id="highScoreDisplay"></p>
+    </div>
+
+    <div id="howToPlay" style="display:none;">
+        <h2>How to Play</h2>
+        <p>Use the arrow keys to move the snake.</p>
+        <p>Eat the food to grow and increase your score!</p>
+        <img src="/arrow_keys.jpeg" alt="Arrow keys">
+        <button id="backToHomeButton">Back</button>
+    </div>
+
+    <div id="settings" style="display:none;">
+        <h2>Settings</h2>
+        <label for="speed">Speed:</label>
+        <select id="speed">
+            <option value="100">Normal</option>
+            <option value="50">Fast</option>
+            <option value="25">Very Fast</option>
+        </select>
+        <button id="saveSettingsButton">Save Settings</button>
+        <button id="backToHomeFromSettingsButton">Back</button>
+    </div>
+
+    <div id="gameScreen" style="display:none;">
+        <h2>Snake Game</h2>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <p>Score: <span id="score">0</span></p>
+        <button id="playAgainButton" style="display:none;">Play Again</button>
+        <button id="homeButton" style="display:none;">Home</button>
+    </div>
+
+    <footer>
+        <p>Connect with me on social media:</p>
+        <ul>
+            <li><a href="https://www.linkedin.com/in/roshani-s-a2475926b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com/20rosh" target="_blank">GitHub</a></li>
+        </ul>
+        <p>Check out my portfolio: <a href="https://20rosh.github.io/ROSHANI-PORTFOLIO/" target="_blank">yourportfolio.com</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
